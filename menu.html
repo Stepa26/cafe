@@ -1,0 +1,314 @@
+
+
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Μενού με καφέδες, ροφήματα και snacks - Serres Coffee Spot" />
+  <title>Μενού | Serres Coffee Spot</title>
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a1a;
+      --primary: #000000;
+      --secondary: #f8f8f8;
+      --accent: #d4af37;
+      --highlight: #bfa14a;
+      --card-bg: #ffffff;
+    }
+
+    [data-theme="dark"] {
+      --bg: #121212;
+      --text: #eaeaea;
+      --primary: #ffffff;
+      --secondary: #1e1e1e;
+      --accent: #d4af37;
+      --highlight: #f0c96e;
+      --card-bg: #1e1e1e;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Urbanist', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      transition: background 0.4s ease, color 0.4s ease;
+    }
+
+    .toggle-theme {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      background: var(--accent);
+      color: var(--primary);
+      border: none;
+      padding: 10px 14px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: bold;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease;
+    }
+
+    .toggle-theme:hover {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    header {
+      background: var(--primary);
+      color: var(--accent);
+      text-align: center;
+      padding: 30px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      animation: slideDown 1s ease;
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    nav {
+      background: var(--secondary);
+      padding: 15px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .nav-btn {
+      background: var(--accent);
+      color: var(--primary);
+      padding: 12px 24px;
+      border-radius: 40px;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .nav-btn:hover,
+    .nav-btn.active {
+      background: var(--primary);
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      transform: scale(1.08);
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    .menu-section {
+      display: none;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .menu-section.active {
+      display: flex;
+    }
+
+    .menu-card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      width: 250px;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .menu-card.show {
+      opacity: 1;
+      transform: translateY(0);
+      transition: all 0.6s ease-out;
+    }
+
+    .menu-card:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .menu-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      transition: transform 0.6s ease, filter 0.6s ease;
+    }
+
+    .menu-card img:hover {
+      transform: scale(1.15);
+      filter: brightness(1.2) saturate(1.1);
+    }
+
+    .info {
+      padding: 16px;
+      text-align: center;
+    }
+
+    .info h3 {
+      margin-bottom: 8px;
+      font-size: 1.2rem;
+      color: var(--text);
+    }
+
+    .info p {
+      color: var(--highlight);
+      font-size: 0.95rem;
+    }
+
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    .back-link:hover {
+      color: var(--highlight);
+    }
+
+    footer {
+      text-align: center;
+      background: var(--primary);
+      color: var(--accent);
+      padding: 30px 20px;
+      margin-top: 60px;
+    }
+
+    @media (max-width: 600px) {
+      .menu-card {
+        width: 90%;
+      }
+
+      header h1 {
+        font-size: 2rem;
+      }
+
+      .nav-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <button class="toggle-theme" onclick="toggleTheme()">🌙 / ☀️</button>
+
+  <header>
+    <h1>Μενού</h1>
+    <p>Καφές • Ροφήματα • Snacks</p>
+  </header>
+
+  <nav>
+    <button class="nav-btn" onclick="showMenu('coffee')">Καφέδες</button>
+    <button class="nav-btn" onclick="showMenu('drinks')">Ροφήματα</button>
+    <button class="nav-btn" onclick="showMenu('snacks')">Snacks</button>
+  </nav>
+
+  <main>
+    <div id="coffee" class="menu-section">
+      <div class="menu-card"><img src="images/espresso.jpg"><div class="info"><h3>Espresso</h3><p>1.80€<br>Δυνατός και αρωματικός, ιδανικός για κάθε στιγμή.</p></div></div>
+      <div class="menu-card"><img src="images/cappucino.jpg"><div class="info"><h3>Cappuccino</h3><p>2.20€<br>Ισορροπία espresso και αφρού γάλακτος, με πλούσια γεύση.</p></div></div>
+      <div class="menu-card"><img src="images/freddo-espresso.jpg"><div class="info"><h3>Freddo Espresso</h3><p>2.20€<br>Κρύος espresso με έντονη γεύση και δροσιά.</p></div></div>
+      <div class="menu-card"><img src="images/freddo-cappucino.jpg"><div class="info"><h3>Freddo Cappuccino</h3><p>2.50€<br>Δροσιστικός με πλούσιο αφρό γάλακτος, ιδανικός για το καλοκαίρι.</p></div></div>
+      <div class="menu-card"><img src="images/Latte.jpg"><div class="info"><h3>Latte</h3><p>2.30€<br>Απαλός καφές με αφρόγαλα, ιδανικός για απόλαυση.</p></div></div>
+      <div class="menu-card"><img src="images/ellinikos-kafes.jpg"><div class="info"><h3>Ελληνικός Καφές</h3><p>1.50€<br>Παραδοσιακός, μερακλίδικος, μονός ή διπλός.</p></div></div>
+    </div>
+
+    <div id="drinks" class="menu-section">
+      <div class="menu-card"><img src="images/tsai.jpg"><div class="info"><h3>Τσάι</h3><p>1.80€<br>Ποικιλία γεύσεων: πράσινο, μαύρο, φρούτα του δάσους.</p></div></div>
+      <div class="menu-card"><img src="images/sokolata-zesti.jpg"><div class="info"><h3>Σοκολάτα Ζεστή</h3><p>2.50€<br>Πλούσια και βελούδινη σοκολάτα, τέλεια για κρύες μέρες.</p></div></div>
+      <div class="menu-card"><img src="images/sokolata-krya.jpg"><div class="info"><h3>Σοκολάτα Κρύα</h3><p>2.80€<br>Δροσερή σοκολάτα με γάλα και πάγο, απολαυστική κάθε εποχή.</p></div></div>
+      <div class="menu-card"><img src="images/smoothie.jpg"><div class="info"><h3>Smoothie</h3><p>3.50€<br>Φρέσκα φρούτα, γάλα ή γιαούρτι, φυσική ενέργεια.</p></div></div>
+    </div>
+
+    <div id="snacks" class="menu-section">
+      <div class="menu-card"><img src="images/tost.jpg"><div class="info"><h3>Τοστ</h3><p>2.00€<br>Τυρί, γαλοπούλα, φρέσκο ψωμί — κλασική επιλογή.</p></div></div>
+      <div class="menu-card"><img src="images/croissant.jpg"><div class="info"><h3>Κρουασάν</h3><p>1.80€<br>Βουτύρου ή σοκολάτας, τραγανό και γευστικό.</p></div></div>
+      <div class="menu-card"><img src="images/bara-dimitriakwn.jpg"><div class="info"><h3>Μπάρα Δημητριακών</h3><p>1.50€<br>Υγιεινή επιλογή για ενέργεια on-the-go.</p></div></div>
+      <div class="menu-card"><img src="images/sandwiche.jpg"><div class="info"><h3>Σάντουιτς</h3><p>3.00€<br>Με φρέσκα υλικά και πολλές επιλογές γέμισης.</p></div></div>
+    </div>
+
+    <a class="back-link" href="index.html#top">&larr; Επιστροφή στην αρχική</a>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Serres Coffee Spot | All rights reserved</p>
+  </footer>
+
+  <script>
+    function showMenu(id) {
+      const sections = document.querySelectorAll('.menu-section');
+      const buttons = document.querySelectorAll('.nav-btn');
+
+      sections.forEach(section => section.classList.remove('active'));
+      buttons.forEach(btn => btn.classList.remove('active'));
+
+      document.getElementById(id).classList.add('active');
+      event.target.classList.add('active');
+
+      // Προσθήκη fade-in animation στις κάρτες
+      const cards = document.querySelectorAll(`#${id} .menu-card`);
+      cards.forEach((card, index) => {
+        setTimeout(() => {
+          card.classList.add('show');
+        }, index * 150);
+      });
+    }
+
+    function toggleTheme() {
+      const root = document.documentElement;
+      const current = root.getAttribute("data-theme");
+      if (current === "dark") {
+        root.removeAttribute("data-theme");
+        localStorage.removeItem("theme");
+      } else {
+        root.setAttribute("data-theme", "dark");
+        localStorage.setItem("theme", "dark");
+      }
+    }
+
+    if (localStorage.getItem("theme") === "dark") {
+      document.documentElement.setAttribute("data-theme", "dark");
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelector(".nav-btn").click();
+    });
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
