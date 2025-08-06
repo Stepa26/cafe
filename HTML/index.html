@@ -1,0 +1,382 @@
+
+
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Το αγαπημένο στέκι για καφέ στις Σέρρες - Serres Coffee Spot" />
+  <title>Serres Coffee Spot</title>
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a1a;
+      --primary: #000000;
+      --secondary: #f8f8f8;
+      --accent: #d4af37;
+      --highlight: #bfa14a;
+      --card-bg: #ffffff;
+    }
+
+    [data-theme="dark"] {
+      --bg: #121212;
+      --text: #eaeaea;
+      --primary: #ffffff;
+      --secondary: #1e1e1e;
+      --accent: #d4af37;
+      --highlight: #f0c96e;
+      --card-bg: #1e1e1e;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Urbanist', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      transition: background 0.4s ease, color 0.4s ease;
+    }
+
+    header, footer {
+      background: var(--primary);
+      color: var(--accent);
+      text-align: center;
+      padding: 30px 20px;
+      letter-spacing: 1px;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    nav.nav-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 30px;
+      background: var(--secondary);
+      padding: 15px;
+      animation: slideDown 0.6s ease-in-out;
+    }
+
+    nav a {
+      color: var(--text);
+      font-weight: 600;
+      text-decoration: none;
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -4px;
+      left: 0;
+      background-color: var(--accent);
+      transition: width 0.3s;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .toggle-theme {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      background: var(--accent);
+      color: var(--primary);
+      border: none;
+      padding: 10px 14px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: bold;
+      z-index: 1001;
+    }
+
+    .burger {
+      display: none;
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      background: var(--accent);
+      color: var(--primary);
+      border: none;
+      padding: 10px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      font-weight: bold;
+      z-index: 1000;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 100px 20px;
+      background: url('images/cafe.jpg') center/cover no-repeat;
+      color: white;
+      position: relative;
+      animation: zoomIn 1.2s ease-out;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      backdrop-filter: blur(8px);
+      background: rgba(0, 0, 0, 0.4);
+      padding: 20px 30px;
+      border-radius: 16px;
+      display: inline-block;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .menu-button, .order-buttons a {
+      background: var(--accent);
+      color: var(--primary);
+      padding: 14px 28px;
+      border-radius: 40px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: all 0.3s;
+      display: inline-block;
+      margin-top: 20px;
+      animation: fadeInUp 1s ease-in-out;
+    }
+
+    .menu-button:hover, .order-buttons a:hover {
+      background: var(--primary);
+      color: var(--accent);
+      border: 1px solid var(--accent);
+    }
+
+    .order-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 25px;
+    }
+
+    .section {
+      max-width: 1000px;
+      margin: 60px auto;
+      padding: 40px;
+      background: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+      animation: fadeInUp 0.9s ease-in-out;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .gallery img {
+      width: 100%;
+      border-radius: 10px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.04);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    blockquote {
+      text-align: center;
+      font-size: 1.8rem;
+      font-style: italic;
+      color: var(--accent);
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .map-container iframe {
+      width: 100%;
+      height: 300px;
+      border: 0;
+      border-radius: 12px;
+      margin-top: 25px;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+
+    .top-socials {
+      text-align: center;
+      background: #000;
+      padding: 10px;
+    }
+
+    .top-socials a {
+      color: var(--accent);
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    .top-socials a:hover {
+      color: var(--highlight);
+    }
+
+    @media (max-width: 768px) {
+      nav.nav-links {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        background: var(--secondary);
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        padding: 20px 0;
+        z-index: 999;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      }
+
+      nav.nav-links.show {
+        display: flex;
+      }
+
+      .burger {
+        display: block;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .order-buttons {
+        flex-direction: column;
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes zoomIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <button class="toggle-theme" onclick="toggleTheme()">🌙 / ☀️</button>
+  <button class="burger" onclick="toggleBurger()">☰</button>
+
+  <div class="top-socials">
+    <a href="https://tiktok.com/@serrescoffee" target="_blank">TikTok</a>
+    <a href="https://instagram.com/serrescoffee" target="_blank">Instagram</a>
+    <a href="https://facebook.com/serrescoffee" target="_blank">Facebook</a>
+  </div>
+
+  <header>
+    <h1>Serres Coffee Spot</h1>
+    <p>Το αγαπημένο στέκι καφέ στην καρδιά των Σερρών</p>
+  </header>
+
+  <nav id="main-nav" class="nav-links">
+    <a href="#about">Σχετικά</a>
+    <a href="#gallery">Φωτογραφίες</a>
+    <a href="#contact">Επικοινωνία</a>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <h1>Ξεκίνα τη μέρα σου με χαμόγελο & καφέ!</h1>
+      <a href="menu.html#top" class="menu-button">Δες το Μενού</a>
+      <div class="order-buttons">
+        <a href="https://efood.gr" target="_blank">Παράγγειλε με eFood</a>
+        <a href="https://wolt.com" target="_blank">Παράγγειλε με Wolt</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <blockquote>“Coffee is not just a drink, it’s an experience.” ☕</blockquote>
+    </section>
+
+    <section id="about" class="section">
+      <h2>Σχετικά με εμάς</h2>
+      <p>Το Serres Coffee Spot είναι ένας φιλόξενος χώρος στην καρδιά των Σερρών. Προσφέρουμε specialty καφέδες, φρέσκα ροφήματα και γλυκά snacks σε ένα νεανικό και χαλαρό περιβάλλον.</p>
+    </section>
+
+    <section id="gallery" class="section">
+      <h2>Φωτογραφίες του χώρου</h2>
+      <div class="gallery">
+        <img src="images/outside.jpg" alt="Εσωτερικός χώρος καφετέριας" loading="lazy">
+        <img src="images/outside2.jpg" alt="Εξωτερική όψη" loading="lazy">
+        <img src="images/outsidecaffe.jpg" alt="Bar του καταστήματος" loading="lazy">
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <h2>Επικοινωνία</h2>
+      <p><strong>📍 Τοποθεσία:</strong> Κεντρική Πλατεία, Σέρρες</p>
+      <p><strong>📞 Τηλέφωνο:</strong> <a href="tel:2321012345">23210 12345</a></p>
+      <p><strong>📧 Email:</strong> <a href="mailto:info@serrescoffee.gr">info@serrescoffee.gr</a></p>
+      <div class="map-container">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3091.5598932825046!2d23.54888931524261!3d41.08501487929157!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14a9bfc11d5df45f%3A0x9a735a3f1d234bbc!2sSerres%20Center!5e0!3m2!1sel!2sgr!4v1691402314450" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Serres Coffee Spot | All rights reserved</p>
+    <p><a href="#top">Επιστροφή στην αρχή</a></p>
+  </footer>
+
+  <script>
+    function toggleTheme() {
+      const root = document.documentElement;
+      const current = root.getAttribute("data-theme");
+      if (current === "dark") {
+        root.removeAttribute("data-theme");
+        localStorage.removeItem("theme");
+      } else {
+        root.setAttribute("data-theme", "dark");
+        localStorage.setItem("theme", "dark");
+      }
+    }
+
+    if (localStorage.getItem("theme") === "dark") {
+      document.documentElement.setAttribute("data-theme", "dark");
+    }
+
+    function toggleBurger() {
+      const nav = document.getElementById('main-nav');
+      nav.classList.toggle('show');
+    }
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
